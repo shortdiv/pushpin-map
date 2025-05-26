@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  cursor: pointer;
+  cursor: help;
+  cursor: progress;
+
+  cursor: url("/pushpin.png") 0 0, auto
+}

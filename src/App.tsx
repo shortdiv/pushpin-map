@@ -1,68 +1,53 @@
-import { useAccount, useIsAuthenticated } from "jazz-react";
-import { AuthButton } from "./AuthButton.tsx";
-import { Form } from "./Form.tsx";
-import { Logo } from "./Logo.tsx";
-import { AccountRoot, JazzAccount } from "./schema.ts";
+import { Group } from "jazz-tools"
+import { useAccount, useCoState } from "jazz-react";
+import { Account, Location, ListOfLocations } from "./schema.ts";
+import { Map } from "./Map.tsx"
 
-function App() {
-  const { me } = useAccount(JazzAccount, {
-    resolve: { profile: true, root: true },
-  });
+function MapofLocations(props: { locationId: any, group: any }) {
+  const savedLocations = useCoState(ListOfLocations, props.locationId);
 
-  const isAuthenticated = useIsAuthenticated();
+  const clickEvent = (event: any) => {
+    const location = Location.create({
+      x: event.clientX,
+      y: event.clientY,
+    }, { owner: props.group })
+
+    savedLocations?.push(location)
+  }
 
   return (
     <>
-      <header>
-        <nav className="container flex justify-between items-center py-3">
-          {isAuthenticated ? (
-            <span>You're logged in.</span>
-          ) : (
-            <span>Authenticate to share the data with another device.</span>
-          )}
-          <AuthButton />
-        </nav>
-      </header>
-      <main className="container mt-16 flex flex-col gap-8">
-        <Logo />
+      <div onClick={clickEvent}>
+        <Map />
+      </div>
 
-        <div className="text-center">
-          <h1>
-            Welcome{me?.profile.firstName ? <>, {me?.profile.firstName}</> : ""}
-            !
-          </h1>
-          {!!me?.root && (
-            <p>As of today, you are {AccountRoot.age(me.root)} years old.</p>
-          )}
-        </div>
+      {!!savedLocations ?
+        savedLocations.map((location: any) =>
+          <>
+            <img src="pushpin.png" style={{ position: "absolute", left: location.x, top: location.y }}></img>
+          </>
+        )
+        :
+        <p>No location found</p>
+      }
+    </>
+  )
+}
 
-        <Form />
+function App() {
+  // const router = useIframeHashRouter();
+  const { me } = useAccount(Account, {
+    resolve: { profile: true },
+  });
 
-        <p className="text-center">
-          Edit the form above,{" "}
-          <button
-            type="button"
-            onClick={() => window.location.reload()}
-            className="font-semibold underline"
-          >
-            refresh
-          </button>{" "}
-          this page, and see your changes persist.
-        </p>
+  const publicGroup = Group.create();
+  publicGroup.addMember("everyone", "writer");
 
-        <p className="text-center">
-          Edit <code className="font-semibold">schema.ts</code> to add more
-          fields.
-        </p>
+  const locations = ListOfLocations.create([], { owner: publicGroup });
 
-        <p className="text-center my-16">
-          Go to{" "}
-          <a className="font-semibold underline" href="https://jazz.tools/docs">
-            jazz.tools/docs
-          </a>{" "}
-          for our docs.
-        </p>
-      </main>
+  return (
+    <>
+      <MapofLocations locationId={locations.id} group={publicGroup} />
     </>
   );
 }
