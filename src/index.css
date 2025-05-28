@@ -7,5 +7,13 @@ html {
   cursor: help;
   cursor: progress;
 
-  cursor: url("/pushpin.png") 0 0, auto
+  cursor: url("/pushpin.png") 0 30, auto
+}
+
+path {
+  transition: fill .1s linear
+}
+
+path:hover {
+  fill: #565656
 }

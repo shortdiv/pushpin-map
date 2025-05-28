@@ -1,6 +1,9 @@
-export function Map() {
+import { Children } from "react"
+
+export function Map({ children, clickHandler }: any) {
   return (
     <svg
+      onClick={clickHandler}
       style={{
         fill: "#b9b9b9", height: "100vh", width: "100%"
       }}
@@ -689,6 +692,9 @@ export function Map() {
         id="thrace"
         d="M523.02,209.7l-0.16,3.55l3.1-0.95l1.42-0.95l-0.42-1.54l-1.47-1.17L523.02,209.7L523.02,209.7z" /><path
         id="crete"
-        d="M516.76,230.59l1.63,0.05l0.68,1.01h2.37l1.58-0.58l0.53,0.64l-1.05,1.38l-4.63,0.16l-0.84-1.11l-0.89-0.53L516.76,230.59L516.76,230.59z" /></svg>
+        d="M516.76,230.59l1.63,0.05l0.68,1.01h2.37l1.58-0.58l0.53,0.64l-1.05,1.38l-4.63,0.16l-0.84-1.11l-0.89-0.53L516.76,230.59L516.76,230.59z" />
+      {/* <img src="pushpin.png" style={{ position: "absolute", left: "10px", top: "10px" }}></img> */}
+      {Children.map(children, child => <>{child}</>)}
+    </svg>
   )
 }
