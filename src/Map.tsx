@@ -5,7 +5,7 @@ export function Map({ children, clickHandler }: any) {
     <svg
       onClick={clickHandler}
       style={{
-        fill: "#b9b9b9", height: "100vh", width: "100%"
+        fill: "#b9b9b9", width: "100%"
       }}
       version="1.2"
       id="svg2"

@@ -30,6 +30,7 @@ function MapofLocations(props: { locationId: any }) {
   return (
     <>
       <div>
+        <h1>Where are you from?</h1>
         <Map clickHandler={clickEvent}>
           {!!savedLocations &&
             savedLocations.map((location: any) =>

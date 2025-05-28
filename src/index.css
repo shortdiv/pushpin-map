@@ -1,13 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.go3231402644 {
+  display: none;
+}
 
 html {
   cursor: pointer;
   cursor: help;
   cursor: progress;
 
-  cursor: url("/pushpin.png") 0 30, auto
+  cursor: url("/pushpin.png") 0 30, auto;
+}
+
+h1 {
+  color: #445eff;
+  text-align: center;
+  margin-top: .5em;
+  font-family: 'Libre Bodoni', serif;
+  font-size: 3rem;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.2em;
 }
 
 path {
