@@ -48,7 +48,7 @@ function MapofLocations(props: { locationId: any }) {
 
 function App() {
   const router = useIframeHashRouter();
-  const { me } = useAccount(Account, {
+  useAccount(Account, {
     resolve: { profile: true },
   });
 
